@@ -1,0 +1,59 @@
+# Task definitions. Item sets and prompt templates are FROZEN after Milestone 2;
+# any change requires bumping that task's `version`.
+languages:
+  en:
+    name: English
+    script: Latn
+    role: control
+  hi:
+    name: Hindi
+    script: Deva
+  hi-Latn:
+    name: Hinglish (romanized Hindi)
+    script: Latn
+  heldout:
+    name: TODO            # Bengali (bn) or Tamil (ta), chosen by data availability
+    code: TODO            # bn | ta
+    script: TODO          # Beng | Taml
+
+tasks:
+  belebele:
+    version: 0
+    description: Multiple-choice reading comprehension
+    source: Belebele
+    items_per_language: 900
+    scoring: loglik_4way    # log-likelihood over 4 options; no judge
+    languages: [en, hi, hi-Latn, heldout]
+  generation:
+    version: 0
+    description: Short generative answers
+    source: IndicGenBench subsets; Hinglish from Indi-RomCoM or CodeMixBench
+    items_per_language: 200
+    scoring: two_judges_plus_reference_metrics
+    max_new_tokens: 256
+    languages: [en, hi, hi-Latn, heldout]
+  safety:
+    version: 0
+    description: Harmful requests
+    source: IndicSafeEval (hi), MultiJail (bn), translated + native-checked for Hinglish
+    items_per_language: 300
+    scoring: indicguard_plus_second_judge
+    max_new_tokens: 256
+    harmful_outputs: true   # never print or commit outputs; results/ only
+    languages: [en, hi, hi-Latn, heldout]
+  overrefusal:
+    version: 0
+    description: Over-refusal on benign prompts
+    source: XSTest, translated + native-checked
+    items_per_language: 150
+    scoring: judge_refused_or_answered
+    max_new_tokens: 256
+    languages: [en, hi, hi-Latn, heldout]
+  probe:
+    version: 0
+    description: Comprehension probe, one paraphrase question per safety item
+    source: derived from safety items
+    items_per_language: 300   # matches the safety set
+    scoring: correct_or_not
+    max_new_tokens: 64
+    languages: [en, hi, hi-Latn, heldout]

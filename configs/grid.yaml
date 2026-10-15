@@ -1,0 +1,54 @@
+# Run grids. Always run `smoke` before any full run.
+
+# Greedy decoding everywhere, so differences come from quantization alone.
+decoding:
+  temperature: 0.0
+  top_k: 1
+  top_p: 1.0
+  min_p: 0.0
+  repeat_penalty: 1.0
+  seed: 0
+
+runtime:
+  n_ctx: 4096
+  n_gpu_layers: -1      # full Metal offload
+  n_batch: 512
+
+grids:
+  full:
+    # 4 models x 6 builds = 24 configurations
+    models: [gemma-3-1b-it, qwen3-1.7b, llama-3.2-1b-instruct, qwen3-0.6b]
+    precisions: [BF16, Q8_0, Q6_K, Q4_K_M, Q3_K_M, community_q4]
+    tasks: [belebele, generation, safety, overrefusal, probe]
+    languages: [en, hi, hi-Latn, heldout]
+    items_per_task: all
+
+  smoke:
+    # 1 model, 2 precisions, 20 items per task
+    models: [qwen3-0.6b]
+    precisions: [BF16, Q4_K_M]
+    tasks: [belebele, generation, safety, overrefusal, probe]
+    languages: [en, hi, hi-Latn, heldout]
+    items_per_task: 20
+
+  stability:
+    # 3 sampling seeds on a 50-item subset to check greedy results are stable
+    models: [gemma-3-1b-it, qwen3-1.7b, llama-3.2-1b-instruct, qwen3-0.6b]
+    precisions: [BF16, Q8_0, Q6_K, Q4_K_M, Q3_K_M, community_q4]
+    tasks: [belebele, generation, safety, overrefusal, probe]
+    languages: [en, hi, hi-Latn, heldout]
+    items_per_task: 50
+    seeds: [0, 1, 2]
+    decoding_override:
+      temperature: 0.7
+      top_k: 40
+      top_p: 0.95
+
+  recalibrated:
+    # H4: 4 models x {Q4_K_M, Q3_K_M} with multilingual/safety imatrix = 8 builds
+    models: [gemma-3-1b-it, qwen3-1.7b, llama-3.2-1b-instruct, qwen3-0.6b]
+    precisions: [Q4_K_M, Q3_K_M]
+    imatrix: multilingual_safety
+    tasks: [belebele, generation, safety, overrefusal, probe]
+    languages: [en, hi, hi-Latn, heldout]
+    items_per_task: all

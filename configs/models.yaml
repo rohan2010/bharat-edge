@@ -1,0 +1,50 @@
+# Models under study (all < 2B parameters). Keys are used everywhere else (grid.yaml, results).
+# gated: true -> accept the licence on huggingface.co and `huggingface-cli login` before download.
+# community_q4: the most-downloaded community Q4 GGUF build; pin repo, file AND sha256 once chosen.
+models:
+  gemma-3-1b-it:
+    hf_repo: google/gemma-3-1b-it
+    family: gemma3
+    params: 1.0B
+    gated: true
+    role: primary
+    chat_template: from_gguf
+    community_q4:
+      repo: TODO
+      file: TODO
+      sha256: TODO
+  qwen3-1.7b:
+    hf_repo: Qwen/Qwen3-1.7B
+    family: qwen3
+    params: 1.7B
+    gated: false
+    role: primary
+    chat_template: from_gguf
+    notes: disable thinking mode (enable_thinking=false / "/no_think") for all tasks
+    community_q4:
+      repo: TODO
+      file: TODO
+      sha256: TODO
+  llama-3.2-1b-instruct:
+    hf_repo: meta-llama/Llama-3.2-1B-Instruct
+    family: llama3
+    params: 1.2B
+    gated: true
+    role: primary
+    chat_template: from_gguf
+    community_q4:
+      repo: TODO
+      file: TODO
+      sha256: TODO
+  qwen3-0.6b:
+    hf_repo: Qwen/Qwen3-0.6B
+    family: qwen3
+    params: 0.6B
+    gated: false
+    role: size_check
+    chat_template: from_gguf
+    notes: disable thinking mode (enable_thinking=false / "/no_think") for all tasks
+    community_q4:
+      repo: TODO
+      file: TODO
+      sha256: TODO
