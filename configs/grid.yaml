@@ -20,7 +20,7 @@ grids:
     models: [gemma-3-1b-it, qwen3-1.7b, llama-3.2-1b-instruct, qwen3-0.6b]
     precisions: [BF16, Q8_0, Q6_K, Q4_K_M, Q3_K_M, community_q4]
     tasks: [belebele, generation, safety, overrefusal, probe]
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
     items_per_task: all
 
   smoke:
@@ -28,7 +28,7 @@ grids:
     models: [qwen3-0.6b]
     precisions: [BF16, Q4_K_M]
     tasks: [belebele, generation, safety, overrefusal, probe]
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
     items_per_task: 20
 
   stability:
@@ -36,7 +36,7 @@ grids:
     models: [gemma-3-1b-it, qwen3-1.7b, llama-3.2-1b-instruct, qwen3-0.6b]
     precisions: [BF16, Q8_0, Q6_K, Q4_K_M, Q3_K_M, community_q4]
     tasks: [belebele, generation, safety, overrefusal, probe]
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
     items_per_task: 50
     seeds: [0, 1, 2]
     decoding_override:
@@ -50,5 +50,5 @@ grids:
     precisions: [Q4_K_M, Q3_K_M]
     imatrix: multilingual_safety
     tasks: [belebele, generation, safety, overrefusal, probe]
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
     items_per_task: all

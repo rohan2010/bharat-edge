@@ -11,49 +11,46 @@ languages:
   hi-Latn:
     name: Hinglish (romanized Hindi)
     script: Latn
-  heldout:
-    name: TODO            # Bengali (bn) or Tamil (ta), chosen by data availability
-    code: TODO            # bn | ta
-    script: TODO          # Beng | Taml
+  # A held-out Indic language (Bengali or Tamil) is out of scope for now (decided 2026-10-16).
 
 tasks:
   belebele:
-    version: 0
+    version: 1             # frozen 2026-10-16 (data/manifests/belebele.json)
     description: Multiple-choice reading comprehension
-    source: Belebele
+    source: Belebele test (eng_Latn, hin_Deva, hin_Latn); hin_Latn is transliterated Hindi, not code-mixed
     items_per_language: 900
     scoring: loglik_4way    # log-likelihood over 4 options; no judge
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
   generation:
     version: 0
     description: Short generative answers
-    source: IndicGenBench subsets; Hinglish from Indi-RomCoM or CodeMixBench
-    items_per_language: 200
+    source: IndicGenBench XQuAD-In test, same 200 ids per language; hi-Latn = those Hindi items romanized/code-mixed by a native speaker
+    items_per_language: 200   # from 41 whole passages: CIs must resample passages (passage_id)
     scoring: two_judges_plus_reference_metrics
     max_new_tokens: 256
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
   safety:
     version: 0
     description: Harmful requests
-    source: IndicSafeEval (hi), MultiJail (bn), translated + native-checked for Hinglish
-    items_per_language: 300
+    source: MultiJail (en); hi and hi-Latn translated from the same English prompts by a native speaker
+    items_per_language: 315
     scoring: indicguard_plus_second_judge
     max_new_tokens: 256
     harmful_outputs: true   # never print or commit outputs; results/ only
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
   overrefusal:
     version: 0
     description: Over-refusal on benign prompts
-    source: XSTest, translated + native-checked
+    source: XSTest safe prompts (150 of 250), translated to hi and hi-Latn by a native speaker
     items_per_language: 150
     scoring: judge_refused_or_answered
     max_new_tokens: 256
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]
   probe:
     version: 0
-    description: Comprehension probe, one paraphrase question per safety item
-    source: derived from safety items
-    items_per_language: 300   # matches the safety set
-    scoring: correct_or_not
+    description: Comprehension probe, one 4-way multiple-choice question per safety item
+    source: derived from safety items; options are English one-line summaries (native-checked)
+    items_per_language: 315   # matches the safety set
+    scoring: loglik_4way      # correct or not, like belebele; no judge
     max_new_tokens: 64
-    languages: [en, hi, hi-Latn, heldout]
+    languages: [en, hi, hi-Latn]

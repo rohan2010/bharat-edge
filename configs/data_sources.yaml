@@ -1,0 +1,24 @@
+# Upstream task data, pinned by HF dataset commit. `data/fetch.py` downloads each file into
+# data/raw/<key>/ (gitignored) and records its sha256 in data/manifests/sources.json.
+# Revisions taken 2026-10-16. See docs/data-availability.md for licences and counts.
+sources:
+  belebele:
+    repo: facebook/belebele
+    revision: 7899cdfa4e1e0d733fd77c848e2c273cb1d32be2
+    license: CC-BY-SA-4.0
+    files: [data/eng_Latn.jsonl, data/hin_Deva.jsonl, data/hin_Latn.jsonl]
+  xquad_in:
+    repo: google/IndicGenBench_xquad_in
+    revision: 32026f0bcb0eed9aea0418694448c143c98acb0a
+    license: CC-BY-SA-4.0    # carries a contamination canary: never re-publish raw items
+    files: [xquad_en_test.json, xquad_hi_test.json]
+  multijail:
+    repo: DAMO-NLP-SG/MultiJail
+    revision: 93d65c778925d55973b9ff30c7bccc8545494eb6
+    license: MIT
+    files: [MultiJail.csv]
+  xstest:
+    repo: Paul/XSTest
+    revision: f600c994b256f12867dfa5b3eb3d545a3e62f8b5
+    license: CC-BY-4.0
+    files: [xstest_prompts.csv]

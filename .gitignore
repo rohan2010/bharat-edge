@@ -13,6 +13,23 @@ third_party/
 *.safetensors
 data/raw/
 
-# run outputs: keep only aggregate summaries
-results/*
-!results/summaries/
+# run outputs, including summaries: unpublished research
+results/
+
+# personal learning notes (local only, never pushed)
+docs/learning/
+
+# frozen item sets and translation worksheets (hashes live in data/manifests/)
+data/frozen/
+data/work/
+
+# unpublished research: local only until publication (backed up by data/backup.py to a
+# private HF dataset repo)
+docs/BharatEdge-Eval Project Write-up and Literature Review.*
+docs/setup-log.md
+docs/data-availability.md
+configs/model_store.json
+data/manifests/
+
+# browser-test artifacts
+.playwright-mcp/

@@ -3,7 +3,7 @@
 Does GGUF quantization of sub-2B models hurt Indic languages more than English?
 Models: Gemma 3 1B it, Qwen3 1.7B, Llama 3.2 1B Instruct (+ Qwen3 0.6B size check).
 Builds: BF16 (reference), Q8_0, Q6_K, Q4_K_M, Q3_K_M, community Q4 = 24 configs, + 8 imatrix-recalibrated (H4).
-Languages: en (control), hi (Devanagari), hi-Latn (Hinglish), Bengali or Tamil (held out).
+Languages: en (control), hi (Devanagari), hi-Latn (Hinglish). Held-out Bengali/Tamil dropped for now (2026-10-16).
 Tasks: Belebele MC (log-likelihood), short generation, harmful requests, over-refusal, comprehension probe.
 Primary metric: relative loss Δ = (S_BF16 − S_q)/S_BF16 and gap G = Δ_L − Δ_en (ratio only if Δ_en > 1 pt).
 Greedy decoding, fixed item order. Mac (M4, Metal) via llama.cpp; one 4 GB Android phone via Termux.
@@ -44,4 +44,4 @@ uv run ruff check .
 uv run ruff format src tests
 ```
 
-Layout: `src/bee/` (package), `configs/`, `tests/`, `data/` (scripts only; `data/raw/` gitignored), `phone/`, `results/` (gitignored except `results/summaries/`), `third_party/` and `models/` gitignored. Python must be uv-managed 3.11.14 (python.org builds disable Metal BF16 kernels). llama.cpp CLI defaults to a 40k context (4.5 GB KV); always pass `-c 2048` or similar. Disk is tight (~20 GB free): don't install torch until the Value Imprint milestone; delete intermediate GGUFs you no longer need.
+Layout: `src/bee/` (package), `configs/`, `tests/`, `data/` (scripts only; `data/raw/` gitignored), `phone/`, `results/` (gitignored, summaries too, until publication). Unpublished research docs, `configs/model_store.json` and `data/manifests/` are gitignored too; `uv run python data/backup.py push` backs them up to the private HF dataset repo, `third_party/` and `models/` gitignored. Python must be uv-managed 3.11.14 (python.org builds disable Metal BF16 kernels). llama.cpp CLI defaults to a 40k context (4.5 GB KV); always pass `-c 2048` or similar. Disk is tight (~20 GB free): don't install torch until the Value Imprint milestone; delete intermediate GGUFs you no longer need.

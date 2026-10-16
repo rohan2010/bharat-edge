@@ -1,6 +1,7 @@
 # Models under study (all < 2B parameters). Keys are used everywhere else (grid.yaml, results).
 # gated: true -> accept the licence on huggingface.co and `huggingface-cli login` before download.
-# community_q4: the most-downloaded community Q4 GGUF build; pin repo, file AND sha256 once chosen.
+# community_q4: the most-downloaded (all-time) community Q4 GGUF build, pinned by repo commit and
+# sha256 (snapshot 2026-10-15; see docs/data-availability.md section 7). Not re-uploaded to our store.
 models:
   gemma-3-1b-it:
     hf_repo: google/gemma-3-1b-it
@@ -10,9 +11,11 @@ models:
     role: primary
     chat_template: from_gguf
     community_q4:
-      repo: TODO
-      file: TODO
-      sha256: TODO
+      repo: MaziyarPanahi/gemma-3-1b-it-GGUF
+      revision: 9aea24a60427bba55a903a1c4b526842d40fad3e
+      file: gemma-3-1b-it.Q4_K_M.gguf
+      sha256: e4304281685198621755dac1851c040ff86b071e997cc214bfb9e8aca7f8dec2
+      bytes: 806058272
   qwen3-1.7b:
     hf_repo: Qwen/Qwen3-1.7B
     family: qwen3
@@ -22,9 +25,11 @@ models:
     chat_template: from_gguf
     notes: disable thinking mode (enable_thinking=false / "/no_think") for all tasks
     community_q4:
-      repo: TODO
-      file: TODO
-      sha256: TODO
+      repo: MaziyarPanahi/Qwen3-1.7B-GGUF
+      revision: 57a69d3bba4c7254d3466a3bb96d909b988f8fbd
+      file: Qwen3-1.7B.Q4_K_M.gguf
+      sha256: ea2aa5f1cce3c8df81ae5fd292a6ed265b8393cc89534dc21fc5327cc974116a
+      bytes: 1282439296
   llama-3.2-1b-instruct:
     hf_repo: meta-llama/Llama-3.2-1B-Instruct
     family: llama3
@@ -33,9 +38,11 @@ models:
     role: primary
     chat_template: from_gguf
     community_q4:
-      repo: TODO
-      file: TODO
-      sha256: TODO
+      repo: MaziyarPanahi/Llama-3.2-1B-Instruct-GGUF
+      revision: b64ae94264258a3d7516a34a8c54928d32b19869
+      file: Llama-3.2-1B-Instruct.Q4_K_M.gguf
+      sha256: e4650dd6b45ef456066b11e4927f775eef4dd1e0e8473c3c0f27dd19ee13cc4e
+      bytes: 807694432
   qwen3-0.6b:
     hf_repo: Qwen/Qwen3-0.6B
     family: qwen3
@@ -45,6 +52,8 @@ models:
     chat_template: from_gguf
     notes: disable thinking mode (enable_thinking=false / "/no_think") for all tasks
     community_q4:
-      repo: TODO
-      file: TODO
-      sha256: TODO
+      repo: MaziyarPanahi/Qwen3-0.6B-GGUF
+      revision: 16d75108d73a476af91a4f6df4cd77e854b42d04
+      file: Qwen3-0.6B.Q4_K_M.gguf
+      sha256: dc4503da5d7cc7254055a86cd90e1a8c9d16c6ac71eb3a32b34bf48a1f4e0999
+      bytes: 484220032

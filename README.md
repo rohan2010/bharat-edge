@@ -119,7 +119,7 @@ docs/       write-up, setup log, data availability
 scripts/    build_llamacpp.sh, fetch_model.sh
 src/bee/    quantize, runner, tasks/, judges/, values, stats, report, provenance
 phone/      Termux build notes and timing script
-results/    one JSONL per run (gitignored except results/summaries/)
+results/    one JSONL per run (gitignored, summaries included, until publication)
 tests/      unit tests and the smoke grid
 models/     GGUF files (gitignored; may be a symlink to an SSD)
 third_party/llama.cpp   pinned llama.cpp build (gitignored)
